@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <head>
 	<title>论文管理系统</title>
-	<link rel="icon" sizes="any" mask href="<c:url value='/img/home.ico'/>">
+	<link rel="icon" sizes="any" mask href="<c:url value='/img/logo.png'/>">
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Fonts -->
