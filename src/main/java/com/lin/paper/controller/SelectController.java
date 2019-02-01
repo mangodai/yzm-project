@@ -30,7 +30,7 @@ import com.lin.paper.utils.IDUtils;
 
 /**
  * 选题信息控制器
- * @author	lin
+ * @
  * @date	2018年3月9日下午4:00:08
  * @version 1.0
  */

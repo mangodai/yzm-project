@@ -22,7 +22,7 @@ import com.lin.paper.utils.IDUtils;
 
 /**
  * 课题信息控制器
- * @author	lin
+ * @
  * @date	2018年3月9日上午10:33:17
  * @version 1.0
  */

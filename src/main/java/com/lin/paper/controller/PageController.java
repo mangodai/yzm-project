@@ -15,7 +15,7 @@ import com.lin.paper.service.NoticeService;
 
 /**
  * 页面跳转控制器
- * @author	lin
+ * @
  * @date	2018年1月18日下午4:29:24
  * @version 1.0
  */

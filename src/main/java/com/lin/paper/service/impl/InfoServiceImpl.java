@@ -31,7 +31,7 @@ import com.lin.paper.utils.IDUtils;
 
 /**
  * 用户信息的业务逻辑实现类
- * @author	lin
+ * @
  * @date	2018年1月18日下午4:33:17
  * @version 1.0
  */

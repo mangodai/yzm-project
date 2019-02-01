@@ -48,7 +48,7 @@
 	<div class="container">
 	    <h2 class="text-center">
 	    	<i class="app-logo fa fa-university fa-5x color-white"></i>
-	    	<div class="color-white">赣南师范大学科技学院</div>
+	    	<div class="color-white">江西农业大学</div>
 	    </h2>
 	</div>
 </div>

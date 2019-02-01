@@ -18,7 +18,7 @@ import com.lin.paper.service.GroupService;
 
 /**
  * 小组的业务逻辑实现类
- * @author	lin
+ * @
  * @date	2018年2月8日上午11:07:58
  * @version 1.0
  */

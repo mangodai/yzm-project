@@ -5,7 +5,7 @@ import java.util.Random;
 
 /**
  * 主键生成工具
- * @author	lin
+ * @
  * @date	2018年1月22日上午10:57:19
  * @version 1.0
  */

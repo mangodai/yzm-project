@@ -10,7 +10,7 @@ import com.lin.paper.pojo.PNotice;
 
 /**
  * 公告信息业务逻辑接口
- * @author	lin
+ * @
  * @date	2018年1月18日下午5:08:12
  * @version 1.0
  */

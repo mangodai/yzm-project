@@ -29,7 +29,7 @@ import com.lin.paper.service.SelectService;
 
 /**
  * 论文文档控制器
- * @author	lin
+ * @
  * @date	2018年3月12日下午9:23:37
  * @version 1.0
  */

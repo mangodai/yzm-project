@@ -29,7 +29,7 @@ import com.lin.paper.utils.VerifyCode;
 
 /**
  * 用户信息控制器
- * @author	lin
+ * @
  * @date	2018年1月18日下午4:29:37
  * @version 1.0
  */

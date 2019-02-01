@@ -4,7 +4,7 @@ import com.lin.paper.pojo.PSelect;
 
 /**
  * 成绩汇总表
- * @author	lin
+ * @
  * @date	2018年4月21日下午4:24:11
  * @version 1.0
  */

@@ -7,7 +7,7 @@ import com.lin.paper.pojo.PInfo;
 
 /**
  * 用户信息的业务逻辑接口
- * @author	lin
+ * @
  * @date	2018年1月18日下午4:32:14
  * @version 1.0
  */

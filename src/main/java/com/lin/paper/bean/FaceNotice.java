@@ -8,7 +8,7 @@ import com.lin.paper.pojo.PNotice;
 
 /**
  * 前台显示的公告信息
- * @author	lin
+ * @
  * @date	2018年1月21日下午6:27:56
  * @version 1.0
  */

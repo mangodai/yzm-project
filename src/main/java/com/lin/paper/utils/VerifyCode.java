@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 
 /**
  * 验证码类
- * @author	lin
+ * @
  * @date	2018年2月1日下午2:58:51
  * @version 1.0
  */

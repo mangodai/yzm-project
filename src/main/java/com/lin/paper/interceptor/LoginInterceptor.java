@@ -11,7 +11,7 @@ import com.lin.paper.bean.UserInfo;
 
 /**
  * 登录拦截器
- * @author	lin
+ * @
  * @date	2018年2月7日下午7:27:00
  * @version 1.0
  */

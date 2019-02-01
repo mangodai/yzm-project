@@ -8,7 +8,7 @@ import com.lin.paper.pojo.PPermission;
 
 /**
  * 权限信息业务逻辑接口
- * @author	lin
+ * @
  * @date	2018年1月28日下午8:52:06
  * @version 1.0
  */

@@ -5,7 +5,7 @@ import com.lin.paper.pojo.PGroup;
 
 /**
  * 小组的业务逻辑接口
- * @author	lin
+ * @
  * @date	2018年2月8日上午11:07:21
  * @version 1.0
  */

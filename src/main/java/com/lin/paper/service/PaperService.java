@@ -10,7 +10,7 @@ import com.lin.paper.pojo.PPaper;
 
 /**
  * 论文文档的业务逻辑接口
- * @author	lin
+ * @
  * @date	2018年3月12日下午9:24:43
  * @version 1.0
  */

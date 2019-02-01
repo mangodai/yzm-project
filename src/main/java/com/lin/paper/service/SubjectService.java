@@ -7,7 +7,7 @@ import com.lin.paper.pojo.PSubject;
 
 /**
  * 课题的业务逻辑接口
- * @author	lin
+ * @
  * @date	2018年3月9日上午10:37:07
  * @version 1.0
  */

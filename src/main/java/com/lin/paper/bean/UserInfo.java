@@ -9,7 +9,7 @@ import com.lin.paper.pojo.PSelect;
 
 /**
  * 用户数据中间产物
- * @author	lin
+ * @
  * @date	2018年1月23日下午5:38:08
  * @version 1.0
  */

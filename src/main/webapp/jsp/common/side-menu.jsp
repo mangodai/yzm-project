@@ -10,7 +10,7 @@
 					<a class="navbar-brand" href="#">
 						<!-- <div class="icon fa fa-paper-plane"></div> -->
 						<div class="icon fa">
-							<img title="赣南师范大学科技学院" alt="赣南师范大学科技学院" style="width:34px;height: 34px" src="<c:url value='/img/school.png'/>">
+							<img title="江西农业大学" alt="江西农业大学" style="width:34px;height: 34px" src="<c:url value='/img/school.png'/>">
 						</div>
 						<div class="title">论文管理系统</div>
 					</a>

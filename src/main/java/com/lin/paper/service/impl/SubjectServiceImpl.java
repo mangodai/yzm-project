@@ -24,7 +24,7 @@ import com.mysql.fabric.xmlrpc.base.Array;
 
 /**
  * 课题的业务逻辑实现类
- * @author	lin
+ * @
  * @date	2018年3月9日上午10:54:35
  * @version 1.0
  */

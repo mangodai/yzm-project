@@ -10,7 +10,7 @@ import com.lin.paper.pojo.PSubject;
 
 /**
  * 选题的业务逻辑接口
- * @author	lin
+ * @
  * @date	2018年3月9日下午4:10:54
  * @version 1.0
  */

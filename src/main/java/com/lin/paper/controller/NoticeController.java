@@ -25,7 +25,7 @@ import com.lin.paper.utils.IDUtils;
 
 /**
  * 公告信息控制器
- * @author	lin
+ * @
  * @date	2018年1月22日下午3:03:22
  * @version 1.0
  */

@@ -23,7 +23,7 @@ import com.lin.paper.service.SubjectService;
 
 /**
  * 论文进度控制器
- * @author	lin
+ * @
  * @date	2018年3月10日下午4:15:54
  * @version 1.0
  */

@@ -36,7 +36,7 @@
 	        <div class="container">
 	            <h2 class="text-center"><i class="app-logo fa fa-connectdevelop fa-5x color-white"></i><div class="color-white">论文管理系统</div></h2>
 	            <p class="text-center color-white app-description">
-	           		 欢迎使用赣南师范大学科技学院论文管理系统。
+	           		 欢迎使用江西农业大学论文管理系统。
 	            </p>
 	            <p class="text-center"><a class="btn btn-primary btn-lg app-btn" href="#" role="button">更多...</a></p>
 	        </div>
@@ -50,7 +50,7 @@
 	                </span>
 	                <h2>论文</h2>
 	                <p>
-	                	欢迎使用赣南师范大学科技学院论文管理系统。
+	                	欢迎使用江西农业大学论文管理系统。
 	                </p>
 	            </div>
 	            <!-- /.col-lg-4 -->
@@ -61,7 +61,7 @@
 	                </span>
 	                <h2>管理</h2>
 	                <p>
-	                	欢迎使用赣南师范大学科技学院论文管理系统。
+	                	欢迎使用江西农业大学论文管理系统。
 	                </p>
 	            </div>
 	            <!-- /.col-lg-4 -->
@@ -72,7 +72,7 @@
 	                </span>
 	                <h2>系统</h2>
 	                <p>
-	                	欢迎使用赣南师范大学科技学院论文管理系统。
+	                	欢迎使用江西农业大学论文管理系统。
 	                </p>
 	            </div>
 	            <!-- /.col-lg-4 -->
@@ -86,7 +86,7 @@
 	                </div>
 	                <div class="col-md-5 col-sm-6 text-right color-white">
 	                    <h2 class="featurette-heading">欢迎使用论文管理系统。</h2>
-	                    <p class="lead">欢迎使用赣南师范大学科技学院论文管理系统。</p>
+	                    <p class="lead">欢迎使用江西农业大学论文管理系统。</p>
 	                </div>
 	            </div>
 	        </div>

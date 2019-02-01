@@ -18,7 +18,7 @@ import com.lin.paper.bean.UserInfo;
 
 /**
  * 将Excel表格数据导入到javabean对象测试
- * @author	lin
+ * @
  * @date	2018年1月23日下午5:29:17
  * @version 1.0
  */

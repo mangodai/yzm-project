@@ -21,7 +21,7 @@ import com.lin.paper.service.PermissionService;
 
 /**
  * 权限信息业务逻辑实现类
- * @author	lin
+ * @
  * @date	2018年1月28日下午9:13:48
  * @version 1.0
  */

@@ -7,7 +7,7 @@ import com.lin.paper.pojo.PColumn;
 
 /**
  * 权限使用的菜单栏目
- * @author	lin
+ * @
  * @date	2018年2月1日下午9:36:07
  * @version 1.0
  */

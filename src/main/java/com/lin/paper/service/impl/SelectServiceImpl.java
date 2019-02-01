@@ -31,7 +31,7 @@ import com.lin.paper.utils.IDUtils;
 
 /**
  * 选题的业务逻辑实现类
- * @author	lin
+ * @
  * @date	2018年3月9日下午4:30:44
  * @version 1.0
  */

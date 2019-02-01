@@ -20,7 +20,7 @@ import com.lin.paper.service.PermissionService;
 
 /**
  * 权限信息控制器
- * @author	lin
+ * @
  * @date	2018年1月28日下午8:49:53
  * @version 1.0
  */
