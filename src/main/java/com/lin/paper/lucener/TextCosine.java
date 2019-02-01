@@ -4,10 +4,7 @@ import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,23 +12,23 @@ import java.util.Map;
 
 public class TextCosine {
     // 用来保存同义词典中的键值对
-    private Map<String, String> map = null;
+    private static Map<String, String> map = null;
 
-    public TextCosine() {
+    static {
         map = new HashMap<String, String>();
-        try {
-            InputStreamReader isReader = new InputStreamReader(
-                    new FileInputStream(TextCosine.class.getClassLoader().getResource("synonyms.dict").getPath()), "UTF-8");
-            BufferedReader br = new BufferedReader(isReader);
-            String s = null;
-            while ((s = br.readLine()) != null) {
-                String[] synonymsEnum = s.split("→");
-                map.put(synonymsEnum[0], synonymsEnum[1]);
-            }
-            br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            InputStream path = TextCosine.class.getClass().getClassLoader().getResourceAsStream("synonyms.dict");
+//            InputStreamReader isReader = new InputStreamReader(path, "UTF-8");
+//            BufferedReader br = new BufferedReader(isReader);
+//            String s = null;
+//            while ((s = br.readLine()) != null) {
+//                String[] synonymsEnum = s.split("=");
+//                map.put(synonymsEnum[0], synonymsEnum[1]);
+//            }
+//            br.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**

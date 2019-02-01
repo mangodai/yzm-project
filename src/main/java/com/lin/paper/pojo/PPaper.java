@@ -15,6 +15,26 @@ public class PPaper {
 
     private Date updatetime;
 
+    private String elementJson;
+
+    private Double similarityScore;
+
+    public String getElementJson() {
+        return elementJson;
+    }
+
+    public void setElementJson(String elementJson) {
+        this.elementJson = elementJson;
+    }
+
+    public Double getSimilarityScore() {
+        return similarityScore;
+    }
+
+    public void setSimilarityScore(Double similarityScore) {
+        this.similarityScore = similarityScore;
+    }
+
     public String getPaperid() {
         return paperid;
     }
