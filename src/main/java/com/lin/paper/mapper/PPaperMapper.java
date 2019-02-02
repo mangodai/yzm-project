@@ -2,10 +2,14 @@ package com.lin.paper.mapper;
 
 import com.lin.paper.pojo.PPaper;
 import com.lin.paper.pojo.PPaperExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface PPaperMapper {
+
+    List<PPaper> selectAll();
+
     int countByExample(PPaperExample example);
 
     int deleteByExample(PPaperExample example);

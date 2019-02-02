@@ -8,6 +8,8 @@
     <result column="paperState" property="paperstate" jdbcType="INTEGER" />
     <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="elementJson" property="elementJson" jdbcType="TEXT"/>
+    <result column="similarityScore" property="similarityScore" jdbcType="DOUBLE"/>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    paperId, paperName, fileUrl, paperState, createTime, updateTime
+    paperId, paperName, fileUrl, paperState, createTime, updateTime,elementJson, similarityScore
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lin.paper.pojo.PPaperExample" >
     select
@@ -101,11 +103,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.lin.paper.pojo.PPaper" >
-    insert into p_paper (paperId, paperName, fileUrl, 
-      paperState, createTime, updateTime
+    insert into p_paper (paperId, paperName, fileUrl,
+    paperState, createTime, updateTime, elementJson, similarityScore
       )
-    values (#{paperid,jdbcType=VARCHAR}, #{papername,jdbcType=VARCHAR}, #{fileurl,jdbcType=VARCHAR}, 
-      #{paperstate,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+    values (#{paperid,jdbcType=VARCHAR}, #{papername,jdbcType=VARCHAR}, #{fileurl,jdbcType=VARCHAR},
+    #{paperstate,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP},
+    #{elementJson,jdbcType=TEXT}, #{similarityScore,jdbcType=DOUBLE}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.lin.paper.pojo.PPaper" >
@@ -129,6 +132,12 @@
       <if test="updatetime != null" >
         updateTime,
       </if>
+      <if test="elementJson != null">
+        updateTime,
+      </if>
+      <if test="similarityScore != null">
+        updateTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="paperid != null" >
@@ -149,6 +158,12 @@
       <if test="updatetime != null" >
         #{updatetime,jdbcType=TIMESTAMP},
       </if>
+      <if test="elementJson != null">
+        #{elementJson,jdbcType=TEXT},
+      </if>
+      <if test="similarityScore != null">
+        #{similarityScore,jdbcType=DOUBLE},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.lin.paper.pojo.PPaperExample" resultType="java.lang.Integer" >
@@ -156,6 +171,11 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="selectAll" resultType="com.lin.paper.pojo.PPaper">
+    select
+    <include refid="Base_Column_List"/>
+    from p_paper
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
     update p_paper

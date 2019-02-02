@@ -1,21 +1,11 @@
 package com.lin.paper.service.impl;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lin.paper.bean.UserInfo;
+import com.lin.paper.lucener.ElementDict;
+import com.lin.paper.lucener.TextCosine;
 import com.lin.paper.mapper.PPaperMapper;
 import com.lin.paper.pojo.PPaper;
 import com.lin.paper.pojo.PPaperExample;
@@ -28,6 +18,20 @@ import com.lin.paper.service.ProgressService;
 import com.lin.paper.service.SelectService;
 import com.lin.paper.utils.FileUtil;
 import com.lin.paper.utils.IDUtils;
+import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 论文文档的业务逻辑实现类
@@ -37,6 +41,8 @@ import com.lin.paper.utils.IDUtils;
  */
 @Service
 public class PaperServiceImpl implements PaperService {
+
+    public static final Logger LOG = LoggerFactory.getLogger(PaperServiceImpl.class);
 
 	@Resource
 	private PPaperMapper paperMapper;
@@ -49,8 +55,8 @@ public class PaperServiceImpl implements PaperService {
 	
 	@Value("${COLUMN_SHOW_ROWS}")
 	private Integer COLUMN_SHOW_ROWS;		//后台每页显示数据
-	
-	
+    public static TextCosine textCosine = new TextCosine();
+
 	@Override
 	public ResponseEntity<byte[]> downloadPaperById(String paperid, String path) {
 		ResponseEntity<byte[]> entity = null;
@@ -72,7 +78,6 @@ public class PaperServiceImpl implements PaperService {
         return entity;
 	}
 
-	
 	@Override
 	public PPaper uploadFile(String papername, String paperid, MultipartFile file, String path) {
 		String pre = "/file";	//文件路径相对前缀
@@ -96,10 +101,32 @@ public class PaperServiceImpl implements PaperService {
 			String url = uploadFile(path, ext, file);
 			//设置文件url
 			paper.setFileurl(pre+url);
-		}
-		
-		
-		//更新进度中的文章ID数据
+            String content = FileUtil.wordToHtml(url);
+            if (content != null) {
+                List<ElementDict> elementInNewPaper = textCosine.tokenizer(content);
+                paper.setElementJson(JSON.toJSONString(elementInNewPaper));
+                List<PPaper> papers = paperMapper.selectAll();
+                if (!CollectionUtils.isEmpty(papers) && !CollectionUtils.isEmpty(elementInNewPaper)) {
+                    int count = 0;
+                    double sum = 0D;
+                    for (int i = 0; i < papers.size(); i++) {
+                        PPaper pPaper = papers.get(i);
+                        if (pPaper.getElementJson() != null) {
+                            List<ElementDict> elementInPaper = JSON.parseArray(pPaper.getElementJson(), ElementDict.class);
+                            if (!CollectionUtils.isEmpty(elementInPaper)) {
+                                sum = textCosine.analysis(elementInNewPaper, elementInPaper);
+                                count++;
+                            }
+                        }
+                    }
+                    paper.setSimilarityScore(sum / count);
+                    LOG.info("paper : " + paper);
+                }
+            }
+        }
+
+
+        //更新进度中的文章ID数据
 		PProgress progress = progressService.getProgressById(paperid);
 		if (progress != null) {
 			progress.setPaperid(paperid);
@@ -143,7 +170,8 @@ public class PaperServiceImpl implements PaperService {
 	
 	@Override
 	public void savePaper(PPaper paper) {
-		paperMapper.insert(paper);
+
+        paperMapper.insert(paper);
 		
 	}
 

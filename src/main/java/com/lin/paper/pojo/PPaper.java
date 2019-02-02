@@ -82,4 +82,17 @@ public class PPaper {
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
     }
+
+    @Override
+    public String toString() {
+        return "PPaper{" +
+                "paperid='" + paperid + '\'' +
+                ", papername='" + papername + '\'' +
+                ", fileurl='" + fileurl + '\'' +
+                ", paperstate=" + paperstate +
+                ", createtime=" + createtime +
+                ", updatetime=" + updatetime +
+                ", similarityScore=" + similarityScore +
+                '}';
+    }
 }
