@@ -11,7 +11,6 @@ import com.lin.paper.service.RoleService;
 import com.lin.paper.service.SelectService;
 import com.lin.paper.service.UserService;
 import com.lin.paper.utils.VerifyCode;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,8 +47,7 @@ public class UserController {
 	@Resource
 	private SelectService selectService;
 
-    @Value("${login.debug}")
-    public boolean loginDebug;
+	public boolean loginDebug = true;
 
     /**
 	 * 验证码
