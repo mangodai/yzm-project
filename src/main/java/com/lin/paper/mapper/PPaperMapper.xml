@@ -8,7 +8,7 @@
     <result column="paperState" property="paperstate" jdbcType="INTEGER" />
     <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
-    <result column="elementJson" property="elementJson" jdbcType="TEXT"/>
+      <result column="elementJson" property="elementJson" jdbcType="LONGVARCHAR"/>
     <result column="similarityScore" property="similarityScore" jdbcType="DOUBLE"/>
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -108,7 +108,7 @@
       )
     values (#{paperid,jdbcType=VARCHAR}, #{papername,jdbcType=VARCHAR}, #{fileurl,jdbcType=VARCHAR},
     #{paperstate,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP},
-    #{elementJson,jdbcType=TEXT}, #{similarityScore,jdbcType=DOUBLE}
+      #{elementJson,jdbcType=LONGVARCHAR}, #{similarityScore,jdbcType=DOUBLE}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.lin.paper.pojo.PPaper" >
@@ -159,7 +159,7 @@
         #{updatetime,jdbcType=TIMESTAMP},
       </if>
       <if test="elementJson != null">
-        #{elementJson,jdbcType=TEXT},
+          #{elementJson,jdbcType=LONGVARCHAR},
       </if>
       <if test="similarityScore != null">
         #{similarityScore,jdbcType=DOUBLE},

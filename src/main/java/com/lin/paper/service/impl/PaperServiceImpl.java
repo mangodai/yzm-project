@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -185,6 +186,7 @@ public class PaperServiceImpl implements PaperService {
 		paperMapper.updateByPrimaryKey(paper);
 	}
 
+    public static final DecimalFormat df1 = new DecimalFormat("0.0000");
 
 	@Override
 	public PageInfo<PPaper> getPaperList(Integer page) {
@@ -205,8 +207,10 @@ public class PaperServiceImpl implements PaperService {
 				UserInfo userInfo = infoService.getUserInfoById(progress.getUserid());
 				//文档信息内容：届+班级+姓名+进度+名称
 				String name = userInfo.getSession()+":"+userInfo.getClazz()+":"+userInfo.getName()+":"+progress.getProgressname()+":"+paper.getPapername();
-				
-				paper.setPapername(name);
+                if (paper.getSimilarityScore() != null) {
+                    paper.setSimilarityScoreString(df1.format(paper.getSimilarityScore()));
+                }
+                paper.setPapername(name);
 			}
 		}
 		

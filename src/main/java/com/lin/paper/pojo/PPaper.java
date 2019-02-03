@@ -19,6 +19,16 @@ public class PPaper {
 
     private Double similarityScore;
 
+    private String similarityScoreString;
+
+    public String getSimilarityScoreString() {
+        return similarityScoreString;
+    }
+
+    public void setSimilarityScoreString(String similarityScoreString) {
+        this.similarityScoreString = similarityScoreString;
+    }
+
     public String getElementJson() {
         return elementJson;
     }

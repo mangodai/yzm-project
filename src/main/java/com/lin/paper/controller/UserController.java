@@ -1,19 +1,5 @@
 package com.lin.paper.controller;
 
-import java.awt.image.BufferedImage;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.lin.paper.bean.ColumnPerm;
 import com.lin.paper.bean.UserInfo;
 import com.lin.paper.pojo.PInfo;
@@ -25,6 +11,19 @@ import com.lin.paper.service.RoleService;
 import com.lin.paper.service.SelectService;
 import com.lin.paper.service.UserService;
 import com.lin.paper.utils.VerifyCode;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.util.List;
 
 
 /**
@@ -48,9 +47,11 @@ public class UserController {
 	
 	@Resource
 	private SelectService selectService;
-	
-	
-	/**
+
+    @Value("${login.debug}")
+    public boolean loginDebug;
+
+    /**
 	 * 验证码
 	 * @param request
 	 * @param response
@@ -90,8 +91,9 @@ public class UserController {
 		//验证码校验
 		String vCode = (String) request.getSession().getAttribute("vCode");
 		vCode = vCode==null ? "" : vCode;
-		if (!vCode.equalsIgnoreCase(vcode)){		//验证码错误
-			request.setAttribute("nameError", "验证码错误!");
+        // debug is false, and code is error
+        if (!loginDebug && !vCode.equalsIgnoreCase(vcode)) {        //验证码错误
+            request.setAttribute("nameError", "验证码错误!");
 			request.setAttribute("rcode", vcode);
 			request.setAttribute("user", user);
 			//转发

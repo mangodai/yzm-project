@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <%@ include file="/jsp/common/header.jsp" %>
 <!DOCTYPE html>
 <!-- 文档管理 -->
@@ -28,6 +28,7 @@
 	                                            <tr>
 	                                                <th>序号</th>
 	                                                <th>名称</th>
+													<th>相似度</th>
 	                                                <th>操作</th>
 	                                            </tr>
 	                                        </thead>
@@ -36,7 +37,7 @@
 		                                            <tr>
 		                                                <th scope="row">${p.index+1 }</th>
 		                                                <td>${paper.papername }</td>
-		                                                
+														<td>${paper.similarityScore}</td>
 		                                               	<td>
 															<c:if test="${not empty paper.fileurl }">
 		                                                		<a href="/paper/download/${paper.paperid }.html">下载</a>
