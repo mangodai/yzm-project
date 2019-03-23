@@ -7,6 +7,8 @@ public class PProgress {
 
     private String progressname;
 
+    private String similarityScore;
+
     private Date starttime;
 
     private Date endtime;
@@ -45,6 +47,14 @@ public class PProgress {
 
     public void setStarttime(Date starttime) {
         this.starttime = starttime;
+    }
+
+    public String getSimilarityScore() {
+        return similarityScore;
+    }
+
+    public void setSimilarityScore(String similarityScore) {
+        this.similarityScore = similarityScore;
     }
 
     public Date getEndtime() {

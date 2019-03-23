@@ -26,6 +26,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.converter.PicturesManager;
 import org.apache.poi.hwpf.converter.WordToHtmlConverter;
+import org.apache.poi.hwpf.converter.WordToTextConverter;
 import org.apache.poi.hwpf.usermodel.Picture;
 import org.apache.poi.hwpf.usermodel.PictureType;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
@@ -174,6 +175,94 @@ public class FileUtil {
 			wordToHtmlConverter.setPicturesManager(new PicturesManager() {
 				public String savePicture(byte[] content, PictureType pictureType, String suggestedName,
 						float widthInches, float heightInches) {
+					return suggestedName;
+				}
+			});
+			wordToHtmlConverter.processDocument(wordDocument);
+			// 保存图片
+			List<Picture> pics = wordDocument.getPicturesTable().getAllPictures();
+			if (pics != null) {
+				for (int i = 0; i < pics.size(); i++) {
+					Picture pic = (Picture) pics.get(i);
+					System.out.println();
+					try {
+						pic.writeImageContent(new FileOutputStream(outPutFilePath + pic.suggestFullFileName()));
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			Document htmlDocument = wordToHtmlConverter.getDocument();
+			DOMSource domSource = new DOMSource(htmlDocument);
+			StreamResult streamResult = new StreamResult(out);
+
+			TransformerFactory tf = TransformerFactory.newInstance(); // 这个应该是转换成xml的
+			Transformer serializer = tf.newTransformer();
+			serializer.setOutputProperty(OutputKeys.ENCODING, "utf-8");
+			serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+			serializer.setOutputProperty(OutputKeys.METHOD, "html");
+			serializer.transform(domSource, streamResult);
+		}
+
+		out.close(); //关闭流
+		//写入文件
+		//writeFile(new String(out.toByteArray()), outPutFilePath + newFileName);
+		return new String(out.toByteArray());
+	}
+
+	/**
+	 * 将word转换成html 支持 .doc and .docx
+	 * @param fileName word文件名
+	 * @param outPutFilePath html存储路径
+	 * @param newFileName  html名
+	 * @throws TransformerException
+	 * @throws IOException
+	 * @throws ParserConfigurationException
+	 */
+	public static String convert2Text(String fileName, String outPutFilePath)
+			throws TransformerException, IOException, ParserConfigurationException {
+
+		String substring = fileName.substring(fileName.lastIndexOf(".") + 1);
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+		/**
+		 * word2007和word2003的构建方式不同， 前者的构建方式是xml，后者的构建方式是dom树。
+		 * 文件的后缀也不同，前者后缀为.docx，后者后缀为.doc 相应的，apache.poi提供了不同的实现类。
+		 */
+		if ("docx".equals(substring)) {		//docx
+			// writeFile(new String("<html><head> <meta
+			// http-equiv=\"content-type\" content=\"text/html\"
+			// charset=\"utf-8\"/></head>对不起，.docx格式的word文档，暂时不能生成预览</html>".getBytes("utf-8")),
+			// outPutFilePath+newFileName);
+
+			// step 1 : 加载 DOCX 到 XWPFDocument
+			InputStream inputStream = new FileInputStream(new File(fileName));
+			XWPFDocument document = new XWPFDocument(inputStream);
+
+			// step 2 : prepare XHTML options
+			final String imageUrl = "";
+
+			XHTMLOptions options = XHTMLOptions.create();
+			options.setExtractor(new FileImageExtractor(new File(outPutFilePath + imageUrl)));
+			options.setIgnoreStylesIfUnused(false);
+			options.setFragment(true);
+			options.URIResolver(new IURIResolver() {
+				// @Override 重写的方法，加上这个报错，你看看是啥问题
+				public String resolve(String uri) {
+					return imageUrl + uri;
+				}
+			});
+
+			// step 3 : convert XWPFDocument to XHTML
+			XHTMLConverter.getInstance().convert(document, out, options);
+		} else {		//doc
+			HWPFDocument wordDocument = new HWPFDocument(new FileInputStream(fileName));// WordToHtmlUtils.loadDoc(new
+			// FileInputStream(inputFile));
+			WordToTextConverter wordToHtmlConverter = new WordToTextConverter(
+					DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument());
+			wordToHtmlConverter.setPicturesManager(new PicturesManager() {
+				public String savePicture(byte[] content, PictureType pictureType, String suggestedName,
+										  float widthInches, float heightInches) {
 					return suggestedName;
 				}
 			});

@@ -28,11 +28,11 @@ public interface PaperService {
 	 * 上传文件
 	 * @param papername
 	 * @param file
-	 * @param file
 	 * @param path
-	 * @return
+	 * @param userid
+     * @return
 	 */
-	PPaper uploadFile(String papername, String paperid, MultipartFile file, String path);
+	PPaper uploadFile(String papername, String paperid, MultipartFile file, String path, String userid);
 
 	/**
 	 * 添加论文文档数据
@@ -75,4 +75,5 @@ public interface PaperService {
 	List<PPaper> getPaperListByTeach(String teachid);
 
 
+	void analysis(PPaper paper, String path1);
 }

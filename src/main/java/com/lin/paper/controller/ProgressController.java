@@ -3,11 +3,15 @@ package com.lin.paper.controller;
 
 
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import com.lin.paper.pojo.PPaper;
+import com.lin.paper.service.PaperService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,8 +41,12 @@ public class ProgressController {
 	private SubjectService subjectService;
 	@Resource
 	private ProgressService progressService;
-	
-	
+	@Resource
+	private PaperService paperService;
+
+
+	public static final DecimalFormat df1 = new DecimalFormat("0.0000");
+
 	/**
 	 * 学生进度主界面
 	 * @param model
@@ -63,6 +71,14 @@ public class ProgressController {
 		if (progressList != null) {
 			for (PProgress pProgress : progressList) {
 				pProgress.setProgressname(subjectService.getSubjectById(userInfo.getSelect().getSubjectid()).getSubjectname()+":"+pProgress.getProgressname());
+				if (pProgress.getPaperid() != null) {
+
+					PPaper paperById = paperService.getPaperById(pProgress.getPaperid());
+					if (paperById != null) {
+						pProgress.setSimilarityScore(paperById.getSimilarityScoreString());
+					}
+				}
+
 			}
 		}
 		
@@ -106,7 +122,6 @@ public class ProgressController {
 	
 	/**
 	 * 学生提交进度
-	 * @param subjectid
 	 * @return
 	 */
 	@RequestMapping("/stu/up/{progressid}")

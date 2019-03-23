@@ -85,7 +85,7 @@ public class InfoServiceImpl implements InfoService{
 		//初始化其他数据
 		user.setCreatetime(new Date());		//创建时间
 		user.setUpdatetime(new Date());		//更新时间
-		user.setPwd(DigestUtils.md5Hex(userInfo.getUserno()).toString()); //密码
+		user.setPwd(DigestUtils.md5Hex("123456")); //密码
 		user.setRoles(userInfo.getRoles()); //角色集合
 		user.setUserstate(0); 	//0:正常
 		String userid = IDUtils.getUserId();

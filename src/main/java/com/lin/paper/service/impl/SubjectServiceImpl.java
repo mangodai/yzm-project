@@ -60,9 +60,11 @@ public class SubjectServiceImpl implements SubjectService {
 		//补全指导老师与创建者的姓名
 		for (PSubject pSubject : list) {
 			//指导老师
-			pSubject.setTeachid(infoMapper.selectByPrimaryKey(pSubject.getTeachid()).getName());
+			PInfo pInfo = infoMapper.selectByPrimaryKey(pSubject.getTeachid());
+			PInfo pInfo1 = infoMapper.selectByPrimaryKey(pSubject.getCreateuser());
+			pSubject.setTeachid(pInfo != null ? pInfo.getName() : "");
 			//创建者
-			pSubject.setCreateuser(infoMapper.selectByPrimaryKey(pSubject.getCreateuser()).getName());
+			pSubject.setCreateuser(pInfo1 != null ? pInfo1.getName() : "");
 		}
 		
 		//创建一个返回值对象,设置数据

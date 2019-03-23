@@ -28,7 +28,10 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -80,7 +83,12 @@ public class PaperServiceImpl implements PaperService {
 	}
 
 	@Override
-	public PPaper uploadFile(String papername, String paperid, MultipartFile file, String path) {
+	public void analysis(PPaper paper, String path1) {
+
+	}
+
+	@Override
+	public PPaper uploadFile(String papername, String paperid, MultipartFile file, String path, String userid) {
 		String pre = "/file";	//文件路径相对前缀
 		
 		//创建PPaper对象
@@ -92,6 +100,7 @@ public class PaperServiceImpl implements PaperService {
 		paper.setPapername(papername);
 		paper.setPaperstate(0);
 		paper.setUpdatetime(new Date());
+		paper.setCreateId(userid);
 		
 		//文件上传部分
 		if (!file.isEmpty()) {		//文件不为空
@@ -99,32 +108,16 @@ public class PaperServiceImpl implements PaperService {
 			String originalFilename = file.getOriginalFilename();
 			String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
 			//存储文件
-			String url = uploadFile(path, ext, file);
+			String docWord = uploadFile(path, ext, file);
 			//设置文件url
-			paper.setFileurl(pre+url);
-            String content = FileUtil.wordToHtml(url);
-            if (content != null) {
-                List<ElementDict> elementInNewPaper = textCosine.tokenizer(content);
-                paper.setElementJson(JSON.toJSONString(elementInNewPaper));
-                List<PPaper> papers = paperMapper.selectAll();
-                if (!CollectionUtils.isEmpty(papers) && !CollectionUtils.isEmpty(elementInNewPaper)) {
-                    int count = 0;
-                    double sum = 0D;
-                    for (int i = 0; i < papers.size(); i++) {
-                        PPaper pPaper = papers.get(i);
-                        if (pPaper.getElementJson() != null) {
-                            List<ElementDict> elementInPaper = JSON.parseArray(pPaper.getElementJson(), ElementDict.class);
-                            if (!CollectionUtils.isEmpty(elementInPaper)) {
-                                sum = textCosine.analysis(elementInNewPaper, elementInPaper);
-                                count++;
-                            }
-                        }
-                    }
-                    paper.setSimilarityScore(sum / count);
-                    LOG.info("paper : " + paper);
-                }
-            }
-        }
+			paper.setFileurl(pre + docWord);
+			File wordFile = new File(path, docWord);
+			try {
+				analysisText(paper, wordFile);
+			} catch (Exception e) {
+				LOG.error("e " + e.getMessage() , e);
+			}
+		}
 
 
         //更新进度中的文章ID数据
@@ -134,6 +127,37 @@ public class PaperServiceImpl implements PaperService {
 			progressService.updateProgress(progress);
 		}
 		return paper;
+	}
+
+	private void analysisText(PPaper paper, File wordFile) throws TransformerException, IOException, ParserConfigurationException {
+		String content = FileUtil.convert2Text(wordFile.getAbsolutePath(), wordFile.getParent());
+		int count = 0;
+		double sum = 0D;
+		if (content != null) {
+			List<ElementDict> elementInNewPaper = textCosine.tokenizer(content);
+			paper.setElementJson(JSON.toJSONString(elementInNewPaper));
+			List<PPaper> papers = paperMapper.selectAllExceptionSelf(paper.getCreateId());
+			if (!CollectionUtils.isEmpty(papers) && !CollectionUtils.isEmpty(elementInNewPaper)) {
+
+				for (int i = 0; i < papers.size(); i++) {
+					PPaper pPaper = papers.get(i);
+					if (pPaper.getElementJson() != null) {
+						List<ElementDict> elementInPaper = JSON.parseArray(pPaper.getElementJson(), ElementDict.class);
+						if (!CollectionUtils.isEmpty(elementInPaper)) {
+							sum = textCosine.analysis(elementInNewPaper, elementInPaper);
+							count++;
+						}
+					}
+				}
+
+			}
+		}
+		if (sum == 0 || count == 0) {
+			paper.setSimilarityScoreString("0.0000");
+		} else {
+			paper.setSimilarityScoreString(df1.format(sum / count));
+		}
+		LOG.info("paper : " + paper);
 	}
 
 	/**
@@ -207,9 +231,7 @@ public class PaperServiceImpl implements PaperService {
 				UserInfo userInfo = infoService.getUserInfoById(progress.getUserid());
 				//文档信息内容：届+班级+姓名+进度+名称
 				String name = userInfo.getSession()+":"+userInfo.getClazz()+":"+userInfo.getName()+":"+progress.getProgressname()+":"+paper.getPapername();
-                if (paper.getSimilarityScore() != null) {
-                    paper.setSimilarityScoreString(df1.format(paper.getSimilarityScore()));
-                }
+                progress.setSimilarityScore(paper.getSimilarityScoreString());
                 paper.setPapername(name);
 			}
 		}

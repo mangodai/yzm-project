@@ -41,6 +41,7 @@
 	                                                <th>序号</th>
 	                                                <th>进度名称</th>
 	                                                <th>学生</th>
+													<th>查重率</th>
 	                                                <th>审核意见</th>
 	                                                <th>文档操作</th>
 	                                                <th>控制操作</th>
@@ -52,6 +53,7 @@
 		                                                <th scope="row">${i.index+1 }</th>
 		                                                <td>${progress.progressname }</td>
 		                                                <td>${progress.userid }</td>
+														<td>${progress.similarityScore}</td>
 		                                                <td>
 		                                                	<a data-toggle="modal" data-target="#modalCardProfileExample${i.index }">意见详情</a>
 		                                                	<!-- 意见弹窗 -->

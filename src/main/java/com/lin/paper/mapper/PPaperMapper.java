@@ -31,4 +31,6 @@ public interface PPaperMapper {
     int updateByPrimaryKeySelective(PPaper record);
 
     int updateByPrimaryKey(PPaper record);
+
+    List<PPaper> selectAllExceptionSelf(String createId);
 }

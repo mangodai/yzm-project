@@ -37,7 +37,7 @@
 		                                            <tr>
 		                                                <th scope="row">${p.index+1 }</th>
 		                                                <td>${paper.papername }</td>
-														<td>${paper.similarityScore}</td>
+														<td>${paper.similarityScoreString}</td>
 		                                               	<td>
 															<c:if test="${not empty paper.fileurl }">
 		                                                		<a href="/paper/download/${paper.paperid }.html">下载</a>

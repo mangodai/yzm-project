@@ -41,6 +41,7 @@
 	                                            <tr>
 	                                                <th>序号</th>
 	                                                <th>进度名称</th>
+													<th>重复率</th>
 	                                                <th>开始时间</th>
 	                                                <th>结束时间</th>
 	                                                <th>修改意见</th>
@@ -53,6 +54,7 @@
 	                                        		<tr>
 		                                                <th scope="row">${i.index+1 }</th>
 		                                                <td>${progress.progressname }</td>
+														<td>${progress.similarityScore}</td>
 		                                                <td>
 		                                                	<fmt:formatDate value="${progress.starttime }" pattern="yyyy-MM-dd"/>
 		                                                </td>

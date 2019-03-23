@@ -43,7 +43,7 @@ public class PaperController {
 	private SelectService selectService;
 	@Resource
 	private InfoService infoService;
-	
+	public static final DecimalFormat df1 = new DecimalFormat("0.0000");
 	/**
 	 * 学生端上传文件
 	 * @param model
@@ -72,9 +72,10 @@ public class PaperController {
 		if (userInfo.getSelect() != null && userInfo.getSelect().getProgressid() != null) {
 			//上传文件路径
 	        String path = request.getSession().getServletContext().getRealPath("/file/");
+			String path1 = request.getSession().getServletContext().getRealPath("/");
 			//同步上传文件
-			PPaper paper = paperService.uploadFile(papername, userInfo.getSelect().getProgressid(), file, path);
-			
+			PPaper paper = paperService.uploadFile(papername, userInfo.getSelect().getProgressid(), file, path, userInfo.getUserid());
+//			paperService.analysis(paper, path1);
 			PPaper Paper1 = paperService.getPaperById(paper.getPaperid());
 			if (Paper1 != null) {
 				//更新数据
@@ -100,7 +101,7 @@ public class PaperController {
 	 */
 	@RequestMapping(value="/teach/upload", method=RequestMethod.POST)
 	public String teachSave(Model model, HttpServletRequest request, MultipartFile file, String papername, String paperid) {
-		
+		UserInfo userInfo = (UserInfo)request.getSession().getAttribute("session_user");
 		//上传文件
 		if (!file.isEmpty()) {
 			String originalFilename = file.getOriginalFilename();
@@ -116,7 +117,7 @@ public class PaperController {
 		//上传文件路径
         String path = request.getSession().getServletContext().getRealPath("/file/");
 		//同步上传文件
-		PPaper paper = paperService.uploadFile(papername, paperid, file, path);
+		PPaper paper = paperService.uploadFile(papername, paperid, file, path, userInfo.getUserid());
 		
 		PPaper Paper1 = paperService.getPaperById(paper.getPaperid());
 		if (Paper1 != null) {
@@ -239,7 +240,6 @@ public class PaperController {
     /**
      * 成绩输入
      * @param model
-     * @param paperid
      * @return
      */
     @RequestMapping(value="/score/save", method=RequestMethod.POST)

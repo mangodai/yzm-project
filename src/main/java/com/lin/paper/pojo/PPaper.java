@@ -7,6 +7,8 @@ public class PPaper {
 
     private String papername;
 
+    private String createId;
+
     private String fileurl;
 
     private Integer paperstate;
@@ -17,12 +19,18 @@ public class PPaper {
 
     private String elementJson;
 
-    private Double similarityScore;
-
     private String similarityScoreString;
 
     public String getSimilarityScoreString() {
         return similarityScoreString;
+    }
+
+    public String getCreateId() {
+        return createId;
+    }
+
+    public void setCreateId(String createId) {
+        this.createId = createId;
     }
 
     public void setSimilarityScoreString(String similarityScoreString) {
@@ -35,14 +43,6 @@ public class PPaper {
 
     public void setElementJson(String elementJson) {
         this.elementJson = elementJson;
-    }
-
-    public Double getSimilarityScore() {
-        return similarityScore;
-    }
-
-    public void setSimilarityScore(Double similarityScore) {
-        this.similarityScore = similarityScore;
     }
 
     public String getPaperid() {
@@ -102,7 +102,6 @@ public class PPaper {
                 ", paperstate=" + paperstate +
                 ", createtime=" + createtime +
                 ", updatetime=" + updatetime +
-                ", similarityScore=" + similarityScore +
                 '}';
     }
 }
