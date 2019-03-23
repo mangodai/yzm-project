@@ -249,7 +249,7 @@ public class SelectController {
 		PSelect select = userInfo.getSelect(); 
 		
 		PSelect select2 = null;
-		/*if (select != null && select.getScore() != null) {
+		if (select != null && select.getScore() != null) {
 			select2 = new PSelect();
 			BeanUtils.copyProperties(select, select2);
 			//设置题目
@@ -258,7 +258,7 @@ public class SelectController {
 			select2.setProgressid(progressService.getProgressById(select.getProgressid()).getProgressname());
 			
 			model.addAttribute("select", select2);
-		} else if (select != null && select.getScore() == null){*/
+		} else if (select != null && select.getScore() == null){
 			select2 = selectService.getSelectById(select.getSelectid());
 			select.setScore(select2.getScore());
 			//设置题目
@@ -281,7 +281,7 @@ public class SelectController {
 			}
 			
 			model.addAttribute("select", select2);
-		//}
+		}
 		
 		//跳转到界面
 		return "select/score";
